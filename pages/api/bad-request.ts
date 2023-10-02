@@ -2,19 +2,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string;
-  message: string;
-  method: string;
+    ok: boolean;
+    message: string | string[];
 }
 
 export default function handler( req: NextApiRequest, res: NextApiResponse<Data> ) {
 
-  console.log(process.env);
-  
-  res.status(200).json({ 
-    name: 'John Doe',
-    message: 'Todo chido!',
-    method: req.method || 'No hay metodo'
-  })
-  
+    const { message = 'Bad Request' } = req.query;
+
+    res.status(400).json({ 
+        ok: false,
+        message,
+    });
+
 }
